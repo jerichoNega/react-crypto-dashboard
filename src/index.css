@@ -244,3 +244,18 @@ nav h1 {
   0%, 100% { opacity: 1; }
   50% { opacity: .5; }
 }
+.currency-select {
+  padding: 8px 12px;
+  border-radius: 5px;
+  background-color: #14161a;
+  color: white;
+  border: 1px solid #eebc1d; /* A nice gold color */
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
