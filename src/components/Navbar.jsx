@@ -5,12 +5,12 @@ const Navbar = () => {
   const { currency, setCurrency } = CryptoState();
 
   return (
-    <nav style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem', background: '#14161a' }}>
+    <nav className='nav-right' style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem', background: '#14161a' }}>
       <Link to="/" style={{ color: '#eebc1d', fontWeight: 'bold', textDecoration: 'none' }}>
         CRYPTO TRACKER
       </Link>
 
-      <select 
+      <select className='currency-select'
         value={currency} 
         onChange={(e) => setCurrency(e.target.value)}
         style={{ marginLeft: '15px' }}

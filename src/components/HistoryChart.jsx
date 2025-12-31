@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { CryptoState } from "../context/CryptoContext";
 import {
     LineChart,
     Line,
@@ -14,12 +15,13 @@ function HistoryChart() {
     const { id } = useParams();
     const [chartData, setChartData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { currency, symbol } = CryptoState();
 
     useEffect(() => {
         const fetchChartData = async () => {
             try {
                 const response = await fetch(
-                    `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=7`
+                    `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=${currency}&days=7`
                 );
                 const data = await response.json();
 
@@ -35,7 +37,7 @@ function HistoryChart() {
             }
         };
         fetchChartData();
-    }, [id]);
+    }, [id, currency]);
 
     if(loading) return <div>⏳ Loading Chart... </div>
 
@@ -50,12 +52,12 @@ function HistoryChart() {
                         <YAxis 
                             domain={['auto', 'auto']}
                             stroke="#ccc"
-                            tickFormatter={(val) => `$${val.toLocaleString()}`}
+                            tickFormatter={(val) => `${symbol}${val.toLocaleString()}`}
                             width={80}
                         />
                         <Tooltip 
                             contentStyle={{ backgroundColor: '#1e1e1e', border: 'none' }}
-                            formatter={(value) => [`$${value.toFixed(2)}`, 'Price']}
+                            formatter={(value) => [`${symbol}${value.toFixed(2)}`, 'Price']}
                         />
                         <Line 
                             type="monotone"
