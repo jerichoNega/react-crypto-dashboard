@@ -52,8 +52,12 @@ function HistoryChart() {
     }, [id, currency, days]);
 
     useEffect(() => {
+        if (!chartContainerRef.current) return;
+
         const handleResize = () => {
-            chartRef.current.applyOptions({ width: chartContainerRef.current.clientWidth });
+            if (chartRef.current && chartContainerRef.current) {
+                chartRef.current.applyOptions({ width: chartContainerRef.current.clientWidth });
+            }
         };
 
         chartRef.current = createChart(chartContainerRef.current, {
@@ -85,7 +89,9 @@ function HistoryChart() {
 
         return () => {
             window.removeEventListener('resize', handleResize);
-            chartRef.current.remove();
+            if (chartRef.current) {
+                chartRef.current.remove();
+            }
         };
     }, []);
 
@@ -105,8 +111,11 @@ function HistoryChart() {
                     ))}
                 </div>
             </div>
-            <div ref={chartContainerRef} style={{ position: 'relative' }}>
-                {loading && <div className="chart-loader">🌀 Loading Chart...</div>}
+            <div 
+                ref={chartContainerRef} 
+                style={{ position: 'relative', height: '400px', width: '100%' }}
+            >
+                {loading && <div className="chart-loader">🌀 Loading Chart Data...</div>}
             </div>
         </div>
     )

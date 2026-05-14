@@ -2,12 +2,15 @@ import React from "react";
 import ReactDOM from 'react-dom/client';
 import App from "./App";
 import './index.css';
-import CryptoContext from "./context/CryptoContext"; // Import the Provider
+import CryptoContext from "./context/CryptoContext"; 
+import ErrorBoundary from "./components/ErrorBoundary";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-     <CryptoContext> 
-       <App />
-     </CryptoContext>
+    <ErrorBoundary>
+      <CryptoContext> 
+        <App />
+      </CryptoContext>
+    </ErrorBoundary>
   </React.StrictMode>
 );
