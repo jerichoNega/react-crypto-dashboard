@@ -33,7 +33,11 @@ function Portfolio() {
         }
 
         const data = await response.json();
-        setCoins(data);
+        if (Array.isArray(data)) {
+            setCoins(data);
+        } else {
+            throw new Error("Invalid response from API.");
+        }
       } catch (error) {
         console.error("Error fetching portfolio data:", error);
         setError(error.message);
@@ -44,9 +48,11 @@ function Portfolio() {
     fetchWatchlistCoins();
   }, [currency, watchlist]);
 
-  const totalValue = coins.reduce((acc, coin) => {
+  const safeCoins = Array.isArray(coins) ? coins : [];
+
+  const totalValue = safeCoins.reduce((acc, coin) => {
     const holding = portfolioHoldings[coin.id] || 0;
-    return acc + (holding * coin.current_price);
+    return acc + (holding * (coin?.current_price || 0));
   }, 0);
 
   if (loading) return <div className="loader">🌀 Calculating Portfolio...</div>;
@@ -74,14 +80,14 @@ function Portfolio() {
         </div>
       ) : (
         <div className="coin-grid">
-          {coins.map((coin) => {
+          {safeCoins.map((coin) => {
             const holding = portfolioHoldings[coin.id] || 0;
-            const value = holding * coin.current_price;
+            const value = holding * (coin?.current_price || 0);
 
             return (
               <div key={coin.id} className="coin-card">
                 <div className="coin-card-header">
-                  <img src={coin.image} alt={coin.name} className="coin-logo" />
+                  <img src={coin?.image} alt={coin?.name} className="coin-logo" />
                   <button 
                     className="watchlist-btn active"
                     onClick={() => removeFromWatchlist(coin.id)}
@@ -91,8 +97,8 @@ function Portfolio() {
                   </button>
                 </div>
                 <div className="coin-info">
-                  <h3>{coin.name}</h3>
-                  <p className="price">Price: {symbol}{coin.current_price.toLocaleString()}</p>
+                  <h3>{coin?.name}</h3>
+                  <p className="price">Price: {symbol}{(coin?.current_price || 0).toLocaleString()}</p>
                   
                   <div style={{ marginTop: '1rem', borderTop: '1px solid var(--border)', paddingTop: '1rem' }}>
                     <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Your Holdings:</p>

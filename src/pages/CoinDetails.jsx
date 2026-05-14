@@ -54,16 +54,16 @@ function CoinDetails() {
 
     if (!coin) return <h2>❌ Coin not found</h2>;
 
-    const currentPrice = coin?.market_data?.current_price?.[currency.toLowerCase()];
+    const currentPrice = coin?.market_data?.current_price?.[currency?.toLowerCase() || 'usd'];
 
     return (
         <div className="coin-details-container">
             <Link to="/" className="back-btn">← Back to Market</Link>
 
             <div className="details-header">
-                <img src={coin.image.large} alt={coin.name} className="large-logo" />
+                <img src={coin?.image?.large} alt={coin?.name} className="large-logo" />
                 <div style={{ flex: 1 }}>
-                    <h1>{coin.name} ({coin.symbol.toUpperCase()})</h1>
+                    <h1>{coin?.name} ({coin?.symbol?.toUpperCase()})</h1>
                 </div>
                 <button 
                     className={`watchlist-btn ${isInWatchlist(id) ? 'active' : 'inactive'}`}
@@ -87,21 +87,21 @@ function CoinDetails() {
                 <div className="stat-card">
                     <h3>24H high</h3>
                     <p className="green-text">
-                        {coin?.market_data?.high_24h?.[currency.toLowerCase()] != null
-                            ? `${symbol}${coin.market_data.high_24h[currency.toLowerCase()].toLocaleString()}`
+                        {coin?.market_data?.high_24h?.[currency?.toLowerCase() || 'usd'] != null
+                            ? `${symbol}${coin.market_data.high_24h[currency.toLowerCase() || 'usd'].toLocaleString()}`
                             : "—"}
                     </p>
                 </div>
                 <div className="stat-card">
                     <h3>24H low</h3>
                     <p className="red-text">
-                        {coin?.market_data?.low_24h?.[currency.toLowerCase()] != null
-                            ? `${symbol}${coin.market_data.low_24h[currency.toLowerCase()].toLocaleString()}`
+                        {coin?.market_data?.low_24h?.[currency?.toLowerCase() || 'usd'] != null
+                            ? `${symbol}${coin.market_data.low_24h[currency.toLowerCase() || 'usd'].toLocaleString()}`
                             : "—"}
                     </p>
                 </div>
                 <div className="description-box">
-                    <h3>About {coin.name}</h3>
+                    <h3>About {coin?.name}</h3>
                     <p>
                         {coin?.description?.en
                             ? `${coin.description.en.replace(/<[^>]*>/g, "").split(". ")[0]}.`

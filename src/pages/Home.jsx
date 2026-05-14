@@ -30,7 +30,11 @@ function Home() {
                 }
 
                 const data = await response.json();
-                setCoins(data);
+                if (Array.isArray(data)) {
+                    setCoins(data);
+                } else {
+                    throw new Error("Invalid data received from market.");
+                }
             } catch(error) {
                 console.error("Error fetching the data:", error);
                 setError(error.message);
@@ -41,11 +45,11 @@ function Home() {
         fetchCoins();
     }, [currency]);
 
-    const filteredCoins = coins.filter(coin => 
-        (coin.name.toLowerCase().includes(search.toLowerCase()) || 
-         coin.symbol.toLowerCase().includes(search.toLowerCase())) &&
+    const filteredCoins = Array.isArray(coins) ? coins.filter(coin => 
+        (coin?.name?.toLowerCase().includes(search.toLowerCase()) || 
+         coin?.symbol?.toLowerCase().includes(search.toLowerCase())) &&
         (!showWatchlistOnly || isInWatchlist(coin.id))
-    );
+    ) : [];
 
     const handleWatchlistToggle = (e, coinId) => {
         e.preventDefault();
@@ -57,7 +61,7 @@ function Home() {
         }
     };
 
-    if(loading) return <div className="loader">🌀 Loading Market Data ({currency.toUpperCase()})...</div>
+    if(loading) return <div className="loader">🌀 Loading Market Data ({currency?.toUpperCase() || 'USD'})...</div>
 
     if (error) return (
         <div className="home-container" style={{ textAlign: 'center', padding: '4rem' }}>
@@ -76,7 +80,7 @@ function Home() {
     return (
         <div className="home-container">
             <div className="home-header">
-                <h2>📈 Live {currency.toUpperCase()} Market</h2>
+                <h2>📈 Live {currency?.toUpperCase()} Market</h2>
                 <div className="controls">
                     <input 
                         type="text" 
@@ -97,7 +101,7 @@ function Home() {
                 {filteredCoins.map((coin) => (
                     <Link to={`/coins/${coin.id}`} key={coin.id} className="coin-card">
                         <div className="coin-card-header">
-                            <img src={coin.image} alt={coin.name} className="coin-logo" />
+                            <img src={coin?.image} alt={coin?.name} className="coin-logo" />
                             <button 
                                 className={`watchlist-btn ${isInWatchlist(coin.id) ? 'active' : 'inactive'}`}
                                 onClick={(e) => handleWatchlistToggle(e, coin.id)}
@@ -106,10 +110,10 @@ function Home() {
                             </button>
                         </div>
                         <div className="coin-info">
-                            <h3>{coin.name}</h3>
-                            <p className="price">{symbol}{coin.current_price.toLocaleString()}</p>
-                            <p className={coin.price_change_percentage_24h > 0 ? "green-text" : "red-text"}>
-                                {coin.price_change_percentage_24h?.toFixed(2)}%
+                            <h3>{coin?.name}</h3>
+                            <p className="price">{symbol}{(coin?.current_price || 0).toLocaleString()}</p>
+                            <p className={coin?.price_change_percentage_24h > 0 ? "green-text" : "red-text"}>
+                                {(coin?.price_change_percentage_24h || 0).toFixed(2)}%
                             </p>
                         </div>
                     </Link>
