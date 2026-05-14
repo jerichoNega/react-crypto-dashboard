@@ -219,6 +219,195 @@ nav h1 {
   font-size: 1.25rem;
 }
 
+.watchlist-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+  padding: 0.25rem;
+  line-height: 1;
+}
+
+.watchlist-btn:hover {
+  transform: scale(1.2);
+}
+
+.watchlist-btn.active {
+  color: #fbbf24; /* yellow-400 */
+}
+
+.watchlist-btn.inactive {
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+.coin-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.portfolio-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  width: 100%;
+}
+
+.portfolio-summary {
+  background-color: var(--bg-card);
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.portfolio-summary h2 {
+  font-size: 2.5rem;
+  color: var(--accent);
+  margin-top: 0.5rem;
+}
+
+.holding-input {
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  width: 100px;
+  margin-top: 0.5rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.nav-link {
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--text-primary);
+}
+
+.nav-link.active {
+  color: var(--accent);
+}
+
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.search-input {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  width: 300px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-input:focus {
+  border-color: var(--accent);
+}
+
+.filter-btn {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: var(--accent);
+}
+
+.filter-btn.active {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+.no-results {
+  text-align: center;
+  padding: 4rem;
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.timeframe-selector {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.timeframe-selector button {
+  background-color: var(--bg-dark);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.timeframe-selector button:hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
+}
+
+.timeframe-selector button.active {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--text-primary);
+}
+
+.chart-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(31, 41, 55, 0.7);
+  z-index: 10;
+  border-radius: 0.5rem;
+}
+
 /* Utilities */
 .green-text {
   color: var(--success);

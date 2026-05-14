@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import CoinDetails from './pages/CoinDetails';
+import Portfolio from './pages/Portfolio';
 import './App.css';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/coins/:id" element={<CoinDetails />} />
+          <Route path="/portfolio" element={<Portfolio />} />
         </Routes>
       </div>
     </BrowserRouter>
